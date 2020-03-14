@@ -9,10 +9,11 @@ export const noticeNotificationHandlerModule = async function (snapshot: Documen
 
     if (data) {
         const description = data["description"];
+        const language = data["language"];
 
         const payload = {
             notification: {
-                title: "新着のお知らせがあります",
+                title: "WFC新着ニュース",
                 body: description,
             }
         };
@@ -21,7 +22,7 @@ export const noticeNotificationHandlerModule = async function (snapshot: Documen
             priority: "high"
         };
 
-        admin.messaging().sendToTopic("notice", payload, options)
+        admin.messaging().sendToTopic("notice_" + language, payload, options)
             .then(function(response) {
                 console.log("Successfully sent message:", response);
             })
